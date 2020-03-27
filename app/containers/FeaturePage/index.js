@@ -3,7 +3,8 @@
  *
  * List all the features
  */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
@@ -13,7 +14,16 @@ import List from './List';
 import ListItem from './ListItem';
 import ListItemTitle from './ListItemTitle';
 
-export default function FeaturePage() {
+export default function FeaturePage({ ...props }) {
+  const { id } = props.match.params;
+
+  useEffect(() => {
+    console.log('effect ', id);
+    return () => {
+      console.log('clean ', id);
+    };
+  }, []);
+
   return (
     <div>
       <Helmet>
@@ -25,7 +35,12 @@ export default function FeaturePage() {
       </Helmet>
       <H1>
         <FormattedMessage {...messages.header} />
+        {id}
       </H1>
+      <div>
+        <Link to="/features/5">Goto 5</Link>
+        <Link to="/features/4">Goto 4</Link>
+      </div>
       <List>
         <ListItem>
           <ListItemTitle>
